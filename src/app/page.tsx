@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Webcam from "react-webcam";
 import Image from "next/image";
 
@@ -38,13 +38,13 @@ const CAPTURE_TIMER = 3000 //ms
 
 export default function Home() {
   
-  const [capturedImage, setCapturedImage] = useState<string | null>(null)
-  const [name, setName] = useState<string>("")
-  const [webcamState, setWebcamState] = useState<"loading" | "success" | "error">("loading")
-  const [appState, setAppState] = useState<"initial" | "upload" | "recognize">("initial")
-  const [loading, setLoading] = useState(false)
-  const [recognizedPerson, setRecognizedPerson] = useState<string | null>(null)
-  const [timerState, setTimerState] = useState({
+  const [capturedImage, setCapturedImage] = React.useState<string | null>(null)
+  const [name, setName] = React.useState<string>("")
+  const [webcamState, setWebcamState] = React.useState<"loading" | "success" | "error">("loading")
+  const [appState, setAppState] = React.useState<"initial" | "upload" | "recognize">("initial")
+  const [loading, setLoading] = React.useState(false)
+  const [recognizedPerson, setRecognizedPerson] = React.useState<string | null>(null)
+  const [timerState, setTimerState] = React.useState({
     remainingTime: 0,
     showTimer: false,
     showTimerBorder: false
@@ -282,9 +282,7 @@ export default function Home() {
         </span>
       </div>
       <div className="flex gap-4">
-        <Button variant={'default'} onClick={() => {
-          handleRecognize()
-        }} className="flex gap-2">
+        <Button variant={'default'} onClick={() => {handleRecognize()}} disabled={timerState.showTimer} className="flex gap-2">
           <span>
             Recognize
           </span>
@@ -293,7 +291,7 @@ export default function Home() {
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant={'secondary'} onClick={() => {handleUpload()}} className="flex gap-2"> 
+            <Button variant={'secondary'} onClick={() => {handleUpload()}} disabled={timerState.showTimer} className="flex gap-2"> 
               <span>
                 Capture Your Face
               </span>
